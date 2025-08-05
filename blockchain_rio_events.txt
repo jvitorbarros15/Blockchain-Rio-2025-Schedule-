@@ -1,0 +1,112 @@
+Blockchain RIO 2025 - Events Schedule
+=====================================
+
+Mesa de Abertura Blockchain RIO 2025 - Blockchain Insights - 9:30 - 10:00
+
+Presidente do Banco Central do Brasil - Blockchain Insights - 10:00 - 10:35
+
+Construindo a Nova Infraestrutura Financeira com Bitcoin - Crypto Summit - 10:00 - 10:35
+
+Estruturação jurídica para Tokenização de Ativos - Legalhack - 10:30 - 11:10
+
+BNB Chain - BRidge - 10:50 - 11:15
+
+Inovação, Regulação e Inclusão: Uma visão de futuro para o sistema financeiro - Regulation ROCKS - 11:00 - 11:45
+
+Airdrops ainda Valem a Pena? - Crypto Summit - 10:50 - 11:35
+
+Tokenização de Ativos Reais (RWA) – O Futuro do Mercado Digital - Legalhack - 11:10 - 11:55
+
+Criptoeconomia 2026: Perspectivas e Riscos (Bernado Srur) - RWA Summit - 11:35 - 12:20
+
+Como captar recursos para sua startup - Sebrae - 12:15 - 12:55
+
+DeFi: Soluções Presentes e Futuras - Crypto Summit - 12:20 - 13:05
+
+A Ponte entre DeFi, Tokenização e o Futuro das Finanças Globais - Blockchain Insights - 12:25 - 12:50
+
+IA, soberania de dados e nos impactos da (não) regulação - Regulation ROCKS - 12:30 - 13:15
+
+Stablecoins no Brasil: A Revolução dos Meios de Pagamento - Legalhack - 12:40 - 13:25
+
+Aplicações Reais de Hyperledger Fabric e Besu - LFDT - BRAZIL CHAPTER - 13:30 - 14:20
+
+Internet Tokenizada: Construindo Comunidades, Identidade e Valor na Web3 - BRidge - 14:00 - 14:15
+
+Identidade Digital Descentralizada: Casos, Tecnologias e Perspectivas - LFDT - BRAZIL CHAPTER - 14:20 - 15:10
+
+Projeto Drex: Passado, Presente e Futuro - Regulation ROCKS - 14:50 - 15:40
+
+Panorama Regulatório para Prestadores de Serviços de Ativos Virtuais (PSAVs) - Legalhack - 14:55 - 15:40
+
+Custódia Crypto: Soluções e Desafios Atuais - RWA Summit - 15:05 - 15:30
+
+DeFi, Web3 e o Futuro da Infraestrutura Financeira Global - LFDT - BRAZIL CHAPTER - 15:10 - 16:00
+
+Defiverso: Como descobrimos as grande oportunidades do DeFi - Crypto Summit - 15:25 - 15:50
+
+A Inovação Financeira em Curso no Brasil – Panorama Atual sobre Stablecoins, DREX e Soluções Descentralizadas no Sistema Financeiro Nacional - LFDT - BRAZIL CHAPTER - 16:00 - 16:50
+
+Construindo a Web3: A Infraestrutura por Trás do Futuro Descentralizado - Blockchain Insights - 16:00 - 16:45
+
+O desafio da regulação global das finanças verdes (Thiago) - Regulation ROCKS - 16:25 - 17:10
+
+CBDCs e Stablecoins: Qual o papel de cada uma? (Fabio e Rodrigoh) - Regulation ROCKS - 17:10 - 17:55
+
+Encerramento - Blockchain Insights - 17:55 - 18:05
+
+=====================================
+
+Dia 7 de Agosto
+=====================================
+
+Drex, Reservas Tokenizadas, Stablecoins e Segurança ao Redor do Mundo (joao paulo) - Digital Finance - 9:30 - 10:10
+
+Drex e Outras Iniciativas Globais: Inter&Co, BIS e Valor - Digital Finance - 10:10 - 10:50
+
+Infraestrutura On-Chain para Stablecoins: DeFi, RWAs e Liquidez Global - Digital Finance - 10:50 - 11:35
+
+Conectando Inovação e Supervisão: Os caminhos do NEXUS e do LEAP - CRIA - 10:50 - 11:40
+
+Permaneça Humano: A Importância de Provar a Humanidade na Era da IA - BRidge - 11:00 - 11:25
+
+Mercado de trabalho em blockchain - Sebrae - 11:15 - 11:55
+
+Stablecoins as Global Settlement Infrastructure: the new SWIFT? - Digital Finance - 11:35 - 11:55
+
+Explorando o Futuro - Quando o Blockchain se encontra com a Computação Quântica - Blockchain Insights - 12:10 - 12:35
+
+Conectando Blockchain com o Mundo Real - RWA Summit - 12:35 - 13:00
+
+Soluções de Interoperabilidade para o Drex - Digital Finance - 13:00 - 13:40
+
+IA - Convergência entre Blockchain e Inteligência Artificial - Crypto Summit - 14:55 - 15:20
+
+O que mudou? Regulações recentes e seus impactos no mercado - CRIA - 15:20 - 15:55
+
+RWA – Construindo Ativos Tokenizados para o Mundo - RWA Summit - 15:20 - 15:45
+
+A Era do Genius Act: O Que Isso Significa para as Stablecoins e os Pagamentos Globais - BRidge - 15:30 - 16:15
+
+Humanos, Redes e um Futuro Digital - Blockchain Insights - 17:10 - 17:35
+
+Afinal, a Blockchain é Anônima ou Rastreável? - Crypto Summit - 18:05 - 18:50
+
+=====================================
+
+Stages:
+1. Blockchain Insights
+2. Crypto Summit
+3. Legalhack
+4. BRidge
+5. Regulation ROCKS
+6. RWA Summit
+7. Sebrae
+8. LFDT - BRAZIL CHAPTER
+9. Digital Finance
+10. CRIA
+
+Total Events Day 6: 27
+Total Events Day 7: 16
+Total Events: 43
+Time Range: 9:30 - 18:50
