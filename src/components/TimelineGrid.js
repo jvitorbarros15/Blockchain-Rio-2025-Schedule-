@@ -143,6 +143,7 @@ const TimelineGrid = ({ eventData, currentTime }) => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(0); // 0 = Aug 6, 1 = Aug 7
+  const [deselectedEvents, setDeselectedEvents] = useState(new Set()); // Track deselected events
 
   // Generate dates for August 6th and 7th
   const dates = ['6 Ago', '7 Ago'];
@@ -175,6 +176,18 @@ const TimelineGrid = ({ eventData, currentTime }) => {
   const handleEventInfo = (event) => {
     setSelectedEvent(event);
     setIsModalOpen(true);
+  };
+
+  const handleEventClick = (event) => {
+    const newDeselectedEvents = new Set(deselectedEvents);
+    if (deselectedEvents.has(event.id)) {
+      // Re-select the event (remove from deselected)
+      newDeselectedEvents.delete(event.id);
+    } else {
+      // Deselect the event (add to deselected)
+      newDeselectedEvents.add(event.id);
+    }
+    setDeselectedEvents(newDeselectedEvents);
   };
 
   const closeModal = () => {
@@ -261,6 +274,8 @@ const TimelineGrid = ({ eventData, currentTime }) => {
                     eventIndex={eventIndex}
                     channelEvents={channelEvents}
                     onInfoClick={handleEventInfo}
+                    onEventClick={handleEventClick}
+                    isDeselected={deselectedEvents.has(event.id)}
                   />
                 ))}
               </EventCell>
@@ -318,7 +333,7 @@ const TestEventBlock = styled.div`
   gap: 4px;
 `;
 
-const EventBlock = ({ event, title, stage, startTime, endTime, currentTime, eventIndex, channelEvents, onInfoClick }) => {
+const EventBlock = ({ event, title, stage, startTime, endTime, currentTime, eventIndex, channelEvents, onInfoClick, onEventClick, isDeselected }) => {
   // Time slots array - 30-minute intervals extended to 19:00
   const timeSlots = [
     '09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', 
@@ -389,21 +404,41 @@ const EventBlock = ({ event, title, stage, startTime, endTime, currentTime, even
     eventHeight = 'calc(50% - 4px)'; // Make overlapping events smaller
   }
 
-  // Determine event status based on current time
+  // Determine event status based on current time and event status
   const now = currentTime;
   const currentMinutes = now.getHours() * 60 + now.getMinutes();
   
   let eventStatus, statusColor, statusBg;
-  if (currentMinutes < startMinutes) {
-    eventStatus = 'SOON';
+  
+  // Check if event is cancelled first
+  if (event.status === 'cancelled') {
+    eventStatus = 'CANCELADO';
+    statusColor = '#fff';
+    statusBg = 'linear-gradient(90deg, #ff4444, #cc0000)';
+  } else if (event.status === 'delayed') {
+    if (currentMinutes < startMinutes) {
+      eventStatus = `ATRASADO ${event.delayMinutes}min`;
+      statusColor = '#000';
+      statusBg = `linear-gradient(90deg, #ffc107, #ff9800)`;
+    } else if (currentMinutes >= startMinutes && currentMinutes <= endMinutes) {
+      eventStatus = 'AO VIVO';
+      statusColor = '#000';
+      statusBg = `linear-gradient(90deg, ${stageColor}, ${stageColor}dd)`;
+    } else {
+      eventStatus = 'FINALIZADO';
+      statusColor = '#fff';
+      statusBg = 'linear-gradient(90deg, #666, #444)';
+    }
+  } else if (currentMinutes < startMinutes) {
+    eventStatus = 'EM BREVE';
     statusColor = '#000';
     statusBg = `linear-gradient(90deg, ${stageColor}99, ${stageColor}66)`; // Semi-transparent stage color
   } else if (currentMinutes >= startMinutes && currentMinutes <= endMinutes) {
-    eventStatus = 'LIVE';
+    eventStatus = 'AO VIVO';
     statusColor = '#000';
     statusBg = `linear-gradient(90deg, ${stageColor}, ${stageColor}dd)`;
   } else {
-    eventStatus = 'ENDED';
+    eventStatus = 'FINALIZADO';
     statusColor = '#fff';
     statusBg = 'linear-gradient(90deg, #666, #444)';
   }
@@ -412,30 +447,49 @@ const EventBlock = ({ event, title, stage, startTime, endTime, currentTime, even
   // console.log(`Event: ${title} (${startTime}-${endTime}), Channel: ${stage}, Position: ${left.toFixed(2)}%, Width: ${width.toFixed(2)}%`);
 
   return (
-    <div style={{
-      position: 'absolute',
-      left: `${left}%`,
-      width: `${width}%`,
-      height: eventHeight,
-      top: `${4 + verticalOffset}px`,
-      background: `linear-gradient(135deg, ${stageColor}26 0%, ${stageColor}14 50%, rgba(20, 20, 20, 0.95) 100%)`,
-      border: `1px solid ${stageColor}66`,
-      borderLeft: `3px solid ${stageColor}`,
-      borderRadius: '6px',
-      padding: '8px 10px',
-      color: 'white',
-      fontSize: '11px',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '3px',
-      backdropFilter: 'blur(10px)',
-      boxShadow: `0 2px 8px ${stageColor}26, inset 0 1px 0 rgba(255, 255, 255, 0.1)`,
-      transition: 'all 0.3s ease',
-      cursor: 'pointer',
-      overflow: 'hidden',
-      boxSizing: 'border-box',
-      margin: '0 2px'
-    }}>
+    <div 
+      onClick={() => onEventClick(event)}
+      style={{
+        position: 'absolute',
+        left: `${left}%`,
+        width: `${width}%`,
+        height: eventHeight,
+        top: `${4 + verticalOffset}px`,
+        background: isDeselected 
+          ? `linear-gradient(135deg, rgba(136, 136, 136, 0.15) 0%, rgba(102, 102, 102, 0.08) 50%, rgba(20, 20, 20, 0.95) 100%)`
+          : event.status === 'cancelled' 
+            ? `linear-gradient(135deg, rgba(255, 68, 68, 0.15) 0%, rgba(204, 0, 0, 0.08) 50%, rgba(20, 20, 20, 0.95) 100%)`
+            : `linear-gradient(135deg, ${stageColor}26 0%, ${stageColor}14 50%, rgba(20, 20, 20, 0.95) 100%)`,
+        border: isDeselected
+          ? `1px solid rgba(136, 136, 136, 0.4)`
+          : event.status === 'cancelled' 
+            ? `1px solid rgba(255, 68, 68, 0.4)`
+            : `1px solid ${stageColor}66`,
+        borderLeft: isDeselected
+          ? `3px solid #888888`
+          : event.status === 'cancelled' 
+            ? `3px solid #ff4444`
+            : `3px solid ${stageColor}`,
+        borderRadius: '6px',
+        padding: '8px 10px',
+        color: isDeselected ? '#888' : 'white',
+        fontSize: '11px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '3px',
+        backdropFilter: 'blur(10px)',
+        boxShadow: isDeselected
+          ? `0 2px 8px rgba(136, 136, 136, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)`
+          : event.status === 'cancelled' 
+            ? `0 2px 8px rgba(255, 68, 68, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)`
+            : `0 2px 8px ${stageColor}26, inset 0 1px 0 rgba(255, 255, 255, 0.1)`,
+        transition: 'all 0.3s ease',
+        cursor: 'pointer',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
+        margin: '0 2px',
+        opacity: isDeselected ? 0.6 : (event.status === 'cancelled' ? 0.8 : 1)
+      }}>
       {/* Top glow bar */}
       <div style={{
         position: 'absolute',
@@ -443,7 +497,11 @@ const EventBlock = ({ event, title, stage, startTime, endTime, currentTime, even
         left: '0',
         right: '0',
         height: '2px',
-        background: `linear-gradient(90deg, transparent, ${stageColor}, transparent)`,
+        background: isDeselected
+          ? `linear-gradient(90deg, transparent, #888888, transparent)`
+          : event.status === 'cancelled' 
+            ? `linear-gradient(90deg, transparent, #ff4444, transparent)`
+            : `linear-gradient(90deg, transparent, ${stageColor}, transparent)`,
         opacity: '0.8'
       }} />
       
@@ -456,7 +514,9 @@ const EventBlock = ({ event, title, stage, startTime, endTime, currentTime, even
       }}>
         <div style={{
           fontSize: '10px',
-          color: stageColor,
+          color: isDeselected 
+            ? '#888888'
+            : event.status === 'cancelled' ? '#ff4444' : stageColor,
           fontWeight: '600',
           textTransform: 'uppercase',
           letterSpacing: '0.3px'
@@ -497,9 +557,15 @@ const EventBlock = ({ event, title, stage, startTime, endTime, currentTime, even
       
       {/* Stage tag */}
       <div style={{
-        background: `${stageColor}1A`,
-        border: `1px solid ${stageColor}4D`,
-        color: stageColor,
+        background: isDeselected
+          ? `rgba(136, 136, 136, 0.1)`
+          : event.status === 'cancelled' ? `rgba(255, 68, 68, 0.1)` : `${stageColor}1A`,
+        border: isDeselected
+          ? `1px solid rgba(136, 136, 136, 0.3)`
+          : event.status === 'cancelled' ? `1px solid rgba(255, 68, 68, 0.3)` : `1px solid ${stageColor}4D`,
+        color: isDeselected
+          ? '#888888'
+          : event.status === 'cancelled' ? '#ff4444' : stageColor,
         padding: '1px 6px',
         borderRadius: '10px',
         fontSize: '9px',
