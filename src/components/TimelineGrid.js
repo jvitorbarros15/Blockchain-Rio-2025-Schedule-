@@ -238,7 +238,7 @@ const TimelineGrid = ({ eventData, currentTime }) => {
         </DateRow>
         
         <TimeRow>
-          <div style={{ width: '110px' }}></div>
+          <div style={{ width: '130px' }}></div>
           <div style={{ display: 'flex', position: 'relative', paddingLeft: '2px', minWidth: '3800px', overflow: 'visible', background: 'rgba(20, 20, 20, 0.9)' }}>
             <GlobalTimeIndicator 
               position={getCurrentTimePosition()} 
